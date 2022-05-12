@@ -1,0 +1,110 @@
+body[b-on5vozim6c]{
+    background:#00CED1;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+}
+.main-section[b-on5vozim6c]{
+    background:#FFFFFF;
+    width:80%;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top:50px;
+    box-shadow:0px 2px 7px 1px #aa9191;
+}
+.hedding-title h1[b-on5vozim6c]{
+    margin:0px;
+    padding:0px 0px 10px 0px;
+    font-size:25px;
+}
+.average-rating[b-on5vozim6c]{
+    float:left;
+    text-align: center;
+    width:30%;
+}
+.average-rating h2[b-on5vozim6c]{
+    margin:0px;
+    font-size:80px;
+}
+.average-rating p[b-on5vozim6c]{
+    margin:0px;
+    font-size:20px;
+}
+.fa-star[b-on5vozim6c],.fa-star-o[b-on5vozim6c],.fa-star-half-o[b-on5vozim6c]{
+    color:#FDC91B;
+    font-size:25px !important;
+}
+.progress[b-on5vozim6c],.progress-2[b-on5vozim6c],.progress-3[b-on5vozim6c],.progress-4[b-on5vozim6c],.progress-5[b-on5vozim6c]{
+    background:#F5F5F5;
+    border-radius: 13px;
+    height:18px;
+    width:97%;
+    padding:3px;
+    margin:5px 0px 3px 0px;
+}
+.progress[b-on5vozim6c]:after,.progress-2[b-on5vozim6c]:after,.progress-3[b-on5vozim6c]:after,.progress-4[b-on5vozim6c]:after,.progress-5[b-on5vozim6c]:after{
+    content: '';
+    display: block;
+    background: #337AB7;
+    width:80%;
+    height: 100%;
+    border-radius: 9px;
+}
+.progress-2[b-on5vozim6c]:after{
+    width: 60%;
+}
+.progress-3[b-on5vozim6c]:after{
+    width:40%;
+}
+.progress-4[b-on5vozim6c]:after{
+    width:20%;
+}
+.progress-5[b-on5vozim6c]:after{
+    width:10%;
+}
+.loder-ratimg[b-on5vozim6c]{
+    display: inline-block;
+    width:40%;
+}
+.start-part[b-on5vozim6c]{
+    float:right;
+    width:30%;
+    text-align: center;
+}
+.start-part span[b-on5vozim6c]{
+    color:#337AB7;
+    font-size:23px;
+}
+.reviews h1[b-on5vozim6c]{
+    margin:10px 0px 20px 30px;
+}
+.user-img img[b-on5vozim6c]{
+    height: 80px;
+    width: 80px;
+    border:1px solid blue;
+    border-radius: 50%;
+}
+.user-img-part[b-on5vozim6c]{
+    width:30%;
+    float:left;
+}
+.user-img[b-on5vozim6c]{
+    width:48%;
+    float:left;
+    text-align: center;
+}
+.user-text[b-on5vozim6c]{
+    float:left;
+}
+.user-text h4[b-on5vozim6c],.user-text p[b-on5vozim6c]{
+    margin:0px 0px 5px 0px;
+}
+.user-text p[b-on5vozim6c]{
+    font-size: 20px;
+    font-weight: bold;
+}
+.user-text h4[b-on5vozim6c],.user-text span[b-on5vozim6c]{
+    color:#B3B5B4;
+}
+.comment[b-on5vozim6c]{
+    width:68%;
+    float:right;
+}

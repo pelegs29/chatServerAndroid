@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\peleg\\RiderProjects\\chatServer\\chatServer\\chatServer.csproj": {}
+    "/Users/nadavyakobovich/Documents/university/Advanced programming 2/chat server/chatServer/chatServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\peleg\\RiderProjects\\chatServer\\chatServer\\chatServer.csproj": {
+    "/Users/nadavyakobovich/Documents/university/Advanced programming 2/chat server/chatServer/chatServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\peleg\\RiderProjects\\chatServer\\chatServer\\chatServer.csproj",
+        "projectUniqueName": "/Users/nadavyakobovich/Documents/university/Advanced programming 2/chat server/chatServer/chatServer.csproj",
         "projectName": "chatServer",
-        "projectPath": "C:\\Users\\peleg\\RiderProjects\\chatServer\\chatServer\\chatServer.csproj",
-        "packagesPath": "C:\\Users\\peleg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\peleg\\RiderProjects\\chatServer\\chatServer\\obj\\",
+        "projectPath": "/Users/nadavyakobovich/Documents/university/Advanced programming 2/chat server/chatServer/chatServer.csproj",
+        "packagesPath": "/Users/nadavyakobovich/.nuget/packages/",
+        "outputPath": "/Users/nadavyakobovich/Documents/university/Advanced programming 2/chat server/chatServer/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\peleg\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/nadavyakobovich/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -37,6 +37,52 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "MariaDB.EntityFramework": {
+              "target": "Package",
+              "version": "[0.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.0-preview.4.22229.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0-preview.4.22229.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer.Design": {
+              "target": "Package",
+              "version": "[2.0.0-preview1-final, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[6.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools.DotNet": {
+              "target": "Package",
+              "version": "[2.0.3, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -55,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\peleg\\.dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/Users/nadavyakobovich/.dotnet/sdk/6.0.202/RuntimeIdentifierGraph.json"
         }
       }
     }

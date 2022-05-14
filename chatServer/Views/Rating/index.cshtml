@@ -1,167 +1,66 @@
-﻿@model List<Rating>
+@model IEnumerable<chatServer.Models.Rating>
 
-<body>
-<div class="main-section">
-    <div class="hedding-title">
-        <h1>Star Rating System</h1>
-    </div>
-    <div class="rating-part">
-        <div class="average-rating">
-            <h2>2.5</h2>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i class="fa fa-star-half-o" aria-hidden="true"></i>
-            <i aria-hidden="true" class="fa fa-star-o"></i>
-            <i aria-hidden="true" class="fa fa-star-o"></i>
-            <p>Average Rating</p>
-        </div>
-        <div class="loder-ratimg">
-            <div class="progress"></div>
-            <div class="progress-2"></div>
-            <div class="progress-3"></div>
-            <div class="progress-4"></div>
-            <div class="progress-5"></div>
-        </div>
-        <div class="start-part">
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <span>80%</span><br>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star-o"></i>
-            <span>60%</span><br>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star-o"></i>
-            <i aria-hidden="true" class="fa fa-star-o"></i>
-            <span>40%</span><br>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star-o"></i>
-            <i aria-hidden="true" class="fa fa-star-o"></i>
-            <i aria-hidden="true" class="fa fa-star-o"></i>
-            <span>20%</span><br>
-            <i aria-hidden="true" class="fa fa-star"></i>
-            <i aria-hidden="true" class="fa fa-star-o"></i>
-            <i aria-hidden="true" class="fa fa-star-o"></i>
-            <i aria-hidden="true" class="fa fa-star-o"></i>
-            <i aria-hidden="true" class="fa fa-star-o"></i>
-            <span>10%</span>
-        </div>
-        <div style="clear: both;"></div>
-        <div class="reviews">
-            <h1>Reviews</h1>
-        </div>
-        <div class="comment-part">
-            <div class="user-img-part">
-                <div class="user-img">
-                    <img src="/demo/man01.png">
-                </div>
-                <div class="user-text">
-                    <h4>8 days ago</h4>
-                    <p>Tom kok</p>
-                    <span>Report</span>
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-            <div class="comment">
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco.
-                </p>
-            </div>
-            <div style="clear: both;"></div>
-        </div>
-        <div class="comment-part">
-            <div class="user-img-part">
-                <div class="user-img">
-                    <img src="/demo/man02.png">
-                </div>
-                <div class="user-text">
-                    <h4>30 days ago</h4>
-                    <p>Win Rool</p>
-                    <span>Report</span>
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-            <div class="comment">
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco.
-                </p>
-            </div>
-            <div style="clear: both;"></div>
-        </div>
-        <div class="comment-part">
-            <div class="user-img-part">
-                <div class="user-img">
-                    <img src="/demo/man03.png">
-                </div>
-                <div class="user-text">
-                    <h4>1 days ago</h4>
-                    <p>Jui Choal</p>
-                    <span>Report</span>
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-            <div class="comment">
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco.
-                </p>
-            </div>
-            <div style="clear: both;"></div>
-        </div>
-        <div class="comment-part">
-            <div class="user-img-part">
-                <div class="user-img">
-                    <img src="/demo/man04.png">
-                </div>
-                <div class="user-text">
-                    <h4>24 days ago</h4>
-                    <p>Jack Mins</p>
-                    <span>Report</span>
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-            <div class="comment">
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco.
-                </p>
-            </div>
-            <div style="clear: both;"></div>
-        </div>
-    </div>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="Search" asp-controller="Rating" asp-route-search="search">
+<div class="form-group d-flex">
+    <input id="search" name="search" class="form-control w-25" placeholder="Search Rating By Name"/>
+    <button type="submit" class="btn btn-primary m-2"> Search </button>
 </div>
-</body>
+</form>
+
+
+<h1>Index</h1>
+<p>
+    the average is @ViewBag.average
+</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Review)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stars)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in @Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Review)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stars) /5
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>

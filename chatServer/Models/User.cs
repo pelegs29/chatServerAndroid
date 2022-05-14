@@ -2,7 +2,7 @@
 
 public class User
 {
-    public int UserId { get; set; }
+    public int Id { get; set; } //this is the UserId
 
     public string Name { get; set; }
 

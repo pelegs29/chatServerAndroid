@@ -1,4 +1,4 @@
-﻿namespace chatServer.Models;
+﻿namespace Domain;
 
 public class Conversation
 {

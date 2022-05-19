@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebServerAPI.Controllers;
+namespace chatServerAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]

@@ -1,4 +1,4 @@
-namespace WebServerAPI;
+namespace chatServerAPI;
 
 public class WeatherForecast
 {

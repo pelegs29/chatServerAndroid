@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace chatServer.Models;
+﻿namespace Domain;
 
 public class Content
 {

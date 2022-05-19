@@ -1,8 +1,0 @@
-C:\Users\peleg\RiderProjects\chatServer\chatServerApp\obj\Debug\net6.0\chatServerApp.csproj.AssemblyReference.cache
-C:\Users\peleg\RiderProjects\chatServer\chatServerApp\obj\Debug\net6.0\chatServerApp.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\peleg\RiderProjects\chatServer\chatServerApp\obj\Debug\net6.0\chatServerApp.AssemblyInfoInputs.cache
-C:\Users\peleg\RiderProjects\chatServer\chatServerApp\obj\Debug\net6.0\chatServerApp.AssemblyInfo.cs
-C:\Users\peleg\RiderProjects\chatServer\chatServerApp\obj\Debug\net6.0\chatServerApp.csproj.CoreCompileInputs.cache
-C:\Users\peleg\RiderProjects\chatServer\chatServerApp\obj\Debug\net6.0\chatServerApp.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\peleg\RiderProjects\chatServer\chatServerApp\obj\Debug\net6.0\chatServerApp.RazorAssemblyInfo.cache
-C:\Users\peleg\RiderProjects\chatServer\chatServerApp\obj\Debug\net6.0\chatServerApp.RazorAssemblyInfo.cs

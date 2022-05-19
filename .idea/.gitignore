@@ -12,5 +12,6 @@
 /dataSources/
 /dataSources.local.xml
 # User Added ignores
-bin
-obj
+[Dd]ebug/
+[Bb]in/
+[Oo]bj/

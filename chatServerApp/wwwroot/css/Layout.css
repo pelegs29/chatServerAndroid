@@ -1,0 +1,14 @@
+html{
+    background-image: url(../background.jpg) !important;
+    background-size: cover !important;
+    background-color: #1b6ec2;
+
+}
+
+.mainPage{
+    border: 6px black;
+    padding: 20px;
+     margin-top: 50px;
+    background-color:white;
+    opacity: 1;
+}

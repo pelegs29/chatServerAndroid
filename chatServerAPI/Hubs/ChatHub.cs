@@ -5,7 +5,7 @@ namespace chatServerAPI.Hubs;
 
 public class ChatHub : Hub
 {
-    public readonly static IDictionary<string, string> ConnectionsDict = new Dictionary<string, string>();
+    public static readonly IDictionary<string, string> ConnectionsDict = new Dictionary<string, string>();
 
     public async Task AddUserToConnections(string username)
     {
@@ -16,7 +16,7 @@ public class ChatHub : Hub
 
         ConnectionsDict.Add(username, Context.ConnectionId);
     }
-    
+
     public override Task OnDisconnectedAsync(Exception exception)
     {
         var userID = ConnectionsDict.FirstOrDefault(x => x.Value == Context.ConnectionId).Key;

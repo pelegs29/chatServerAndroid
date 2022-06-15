@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using chatServerAPI.Hubs;
 using Domain;
 using Domain.apiDomain;
+using FirebaseAdmin;
+using FirebaseAdmin.Messaging;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,24 +27,23 @@ namespace chatServerAPI.Controllers
         private IServiceMessages _messagesService;
         private IServiceUsers _usersService;
         private readonly IHubContext<ChatHub> _hubContext;
-        private string _myId;
 
         public CrossServerController(UsersContext usersContext, IHubContext<ChatHub> hub)
         {
             _messagesService = new ServiceMessages(usersContext);
             _usersService = new ServiceUsers(usersContext);
             _hubContext = hub;
-        }
 
-        private void SetMyId()
-        {
-            string? loggedUser = HttpContext.User.FindFirst("username")?.Value;
-            if (loggedUser != null)
+            if (FirebaseApp.DefaultInstance == null)
             {
-                _myId = loggedUser;
+                FirebaseApp.Create(new AppOptions()
+                {
+                    Credential = GoogleCredential.FromFile("private_key.json")
+                });
             }
         }
 
+        // v v v v v v v v v SignalR v v v v v v v v v 
 
         private async Task SendMessage(string fromUser, string toUser, string message, string time)
         {
@@ -63,6 +65,48 @@ namespace chatServerAPI.Controllers
                 await _hubContext.Clients.Client(connectionId).SendAsync("ReceiveContact", fromUser, server);
             }
         }
+
+        // ^ ^ ^ ^ ^ ^ ^ ^ ^ SignalR ^ ^ ^ ^ ^ ^ ^ ^ ^ 
+
+
+        // v v v v v v v v v FireBase v v v v v v v v v
+
+        [HttpPost("firebase/register/")]
+        public async Task GetFirebaseToken(string username, string token)
+        {
+            if (FireBaseHub.ConnectionsDict.ContainsKey(username))
+            {
+                FireBaseHub.ConnectionsDict.Remove(username);
+            }
+
+            FireBaseHub.ConnectionsDict.Add(username, token);
+        }
+
+        private void SendNotification(string fromUser, string toUser, string message, string time)
+        {
+            if (FireBaseHub.ConnectionsDict.ContainsKey(toUser))
+            {
+                var notification = new Message()
+                {
+                    Data = new Dictionary<string, string>()
+                    {
+                        {"myData", "1334"},
+                    },
+                    Token = FireBaseHub.ConnectionsDict[toUser],
+                    Notification = new Notification()
+                    {
+                        Title = "Test title",
+                        Body = "Body test"
+                    }
+                };
+
+                string response = FirebaseMessaging.DefaultInstance.SendAsync(notification).Result;
+            }
+        }
+
+
+        // ^ ^ ^ ^ ^ ^ ^ ^ ^ FireBase ^ ^ ^ ^ ^ ^ ^ ^ ^ 
+
 
         /**
          * getting TransferApi object contains: from, to, content.
@@ -93,12 +137,13 @@ namespace chatServerAPI.Controllers
             {
                 if (listCon.Count == 0)
                 {
-                    cont.Id =  1;
+                    cont.Id = 1;
                 }
                 else
                 {
                     cont.Id = listCon.Last().Id + 1;
                 }
+
                 _messagesService.AddContent(transfer.to, fromId, cont);
             }
 
@@ -106,6 +151,8 @@ namespace chatServerAPI.Controllers
             _usersService.UpdateLastMessage(transfer.to, transfer.from, transfer.content, date);
 
             await SendMessage(transfer.from, transfer.to, transfer.content, date);
+
+            SendNotification(transfer.from, transfer.to, transfer.content, date);
 
             return Ok();
         }
@@ -127,6 +174,7 @@ namespace chatServerAPI.Controllers
             {
                 nickname = invitation.from;
             }
+
             //check if the user exists in the userslist
             if (_usersService.Get(invitation.from) == null)
             {

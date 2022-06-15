@@ -104,7 +104,7 @@ app.UseRouting();
 app.UseCors("ClientPermission");
 app.UseCors("cors_policy");
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 

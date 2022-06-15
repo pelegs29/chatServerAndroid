@@ -72,14 +72,14 @@ namespace chatServerAPI.Controllers
         // v v v v v v v v v FireBase v v v v v v v v v
 
         [HttpPost("firebase/register/")]
-        public async Task GetFirebaseToken(string username, string token)
+        public async Task GetFirebaseToken([FromBody] FirebaseUserApi user)
         {
-            if (FireBaseHub.ConnectionsDict.ContainsKey(username))
+            if (FireBaseHub.ConnectionsDict.ContainsKey(user.username))
             {
-                FireBaseHub.ConnectionsDict.Remove(username);
+                FireBaseHub.ConnectionsDict.Remove(user.username);
             }
 
-            FireBaseHub.ConnectionsDict.Add(username, token);
+            FireBaseHub.ConnectionsDict.Add(user.username, user.token);
         }
 
         private void SendNotification(string fromUser, string toUser, string message, string time)
@@ -90,13 +90,13 @@ namespace chatServerAPI.Controllers
                 {
                     Data = new Dictionary<string, string>()
                     {
-                        {"myData", "1334"},
+                        {"type", "0"}, {"from", fromUser}, {"time", time}
                     },
                     Token = FireBaseHub.ConnectionsDict[toUser],
                     Notification = new Notification()
                     {
-                        Title = "Test title",
-                        Body = "Body test"
+                        Title = "You've received a message from " + fromUser,
+                        Body = message
                     }
                 };
 
@@ -195,6 +195,8 @@ namespace chatServerAPI.Controllers
             };
 
             await AddUser(invitation.from, invitation.to, invitation.server);
+
+            //sendNotification
 
             _usersService.AddContact(myId, contact);
 

@@ -90,7 +90,7 @@ namespace chatServerAPI.Controllers
                 {
                     Data = new Dictionary<string, string>()
                     {
-                        {"type", "0"}, {"from", fromUser}, {"time", time}
+                        {"type", "0"}, {"fromUser", fromUser}, {"time", time}
                     },
                     Token = FireBaseHub.ConnectionsDict[toUser],
                     Notification = new Notification()

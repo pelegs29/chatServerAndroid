@@ -22,8 +22,8 @@ namespace chatServerAPI.Controllers
 
         public ContactsController(UsersContext context)
         {
-            _service = new ServiceUsers(context);
-            _serviceConv = new ServiceMessages(context);
+            _service = new ServiceUsers();
+            _serviceConv = new ServiceMessages();
         }
 
         private void SetMyId()
@@ -116,7 +116,7 @@ namespace chatServerAPI.Controllers
             ContactApi contact = new ContactApi()
             {
                 Id = inputContact.Id, Name = inputContact.Name, Server = inputContact.Server, last = null,
-                lastdate = null
+                lastdate = null, contactOf = _myId
             };
             //check if there is already contact with the same id
             User user = _service.Get(_myId);
@@ -131,7 +131,7 @@ namespace chatServerAPI.Controllers
                 Contents = new List<ContentApi>(), from = _myId, Id = _serviceConv.GetLastConvId() + 1, to = contact.Id
             };
             _serviceConv.AddConv(conv);
-            _service.AddContact(_myId, contact);
+            _service.AddContact(contact);
             return NoContent();
         }
 

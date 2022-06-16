@@ -25,10 +25,11 @@ namespace chatServerAPI.Controllers
         public IConfiguration _configuration;
         private readonly IServiceUsers _service;
 
-        public UsersController(IConfiguration config, UsersContext context)
+        public UsersController(IConfiguration config)
         {
             _configuration = config;
-            _service = new ServiceUsers(context);
+            _service = new ServiceUsers();
+
         }
 
         private string GetToken(string username)

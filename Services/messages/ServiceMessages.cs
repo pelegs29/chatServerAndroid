@@ -1,18 +1,12 @@
 using Domain;
 using Domain.apiDomain;
+using Microsoft.EntityFrameworkCore;
 using Repository;
 
 namespace Services.messages;
 
 public class ServiceMessages : IServiceMessages
 {
-    private List<Conversation>? _conversations; //check
-
-    public ServiceMessages(UsersContext usersContext)
-    {
-        _conversations = usersContext.Conversations;
-    }
-
     public void AddContent(string myId, string idFriend, ContentApi contentApi)
     {
         GetConversation(myId, idFriend).Add(contentApi);
@@ -20,7 +14,7 @@ public class ServiceMessages : IServiceMessages
 
     public void AddConv(Conversation conv)
     {
-        _conversations?.Add(conv);
+        // _conversations?.Add(conv);
     }
 
     public IEnumerable<Conversation> GetAll()
@@ -30,19 +24,30 @@ public class ServiceMessages : IServiceMessages
 
     public int GetLastConvId()
     {
-        return _conversations.Last().Id;
+        using (var db = new ChatDbContext())
+        {
+            return db.Conversations.ToList().Count;
+        }
     }
 
-    public List<ContentApi> GetConversation(string myId, string idFriend)
+    public List<ContentApi>? GetConversation(string myId, string idFriend)
     {
-        var conversation = _conversations.FirstOrDefault(x => x.from == myId && x.to == idFriend);
-        if (conversation == null)
+        using (var db = new ChatDbContext())
         {
+            Conversation? conversations = db.Conversations.Include(x => x.Contents)
+                .FirstOrDefault(conv => conv.from == myId && conv.to == idFriend);
+            if (conversations != null)
+            {
+                if (conversations.Contents != null)
+                {
+                    return conversations.Contents;
+                }
+
+                return null;
+            }
+
             return null;
-        }
-        else
-        {
-            return conversation.Contents;
+            
         }
     }
 

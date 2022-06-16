@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Domain.apiDomain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domain;
 
@@ -14,6 +15,6 @@ public class User
     [Required]
     [DataType(DataType.Password)]
     public string Password { get; set; }
-
+    
     public List<ContactApi>? Contacts { get; set; }
 }

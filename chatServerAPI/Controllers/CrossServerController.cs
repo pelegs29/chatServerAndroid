@@ -30,8 +30,8 @@ namespace chatServerAPI.Controllers
 
         public CrossServerController(UsersContext usersContext, IHubContext<ChatHub> hub)
         {
-            _messagesService = new ServiceMessages(usersContext);
-            _usersService = new ServiceUsers(usersContext);
+            _messagesService = new ServiceMessages();
+            _usersService = new ServiceUsers();
             _hubContext = hub;
 
             if (FirebaseApp.DefaultInstance == null)
@@ -97,6 +97,29 @@ namespace chatServerAPI.Controllers
                     {
                         Title = "You've received a message from " + fromUser,
                         Body = message
+                    }
+                };
+
+                string response = FirebaseMessaging.DefaultInstance.SendAsync(notification).Result;
+            }
+        }
+
+
+        private void AddContact(string fromUser, string toUser, string server)
+        {
+            if (FireBaseHub.ConnectionsDict.ContainsKey(toUser))
+            {
+                var notification = new Message()
+                {
+                    Data = new Dictionary<string, string>()
+                    {
+                        {"type", "1"}, {"fromUser", fromUser}, {"server", server}
+                    },
+                    Token = FireBaseHub.ConnectionsDict[toUser],
+                    Notification = new Notification()
+                    {
+                        Title = fromUser + " added you as a contact",
+                        Body = "chat with " + fromUser + " now !"
                     }
                 };
 
@@ -191,15 +214,14 @@ namespace chatServerAPI.Controllers
             ContactApi contact = new ContactApi()
             {
                 Id = invitation.from, last = null, lastdate = null, Name = nickname,
-                Server = invitation.server
+                Server = invitation.server, contactOf = myId
             };
 
             await AddUser(invitation.from, invitation.to, invitation.server);
 
-            //sendNotification
+            AddContact(invitation.from, invitation.to, invitation.server);
 
-            _usersService.AddContact(myId, contact);
-
+            _usersService.AddContact(contact);
 
             Conversation conv = new Conversation()
             {

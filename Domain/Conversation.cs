@@ -1,4 +1,5 @@
 ﻿using Domain.apiDomain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domain;
 

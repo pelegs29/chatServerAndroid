@@ -1,4 +1,7 @@
-﻿namespace Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+
+namespace Domain;
 
 public class Content
 {

@@ -22,8 +22,8 @@ namespace chatServerAPI.Controllers
 
         public MessagesController(UsersContext usersContext)
         {
-            _service = new ServiceMessages(usersContext);
-            _usersService = new ServiceUsers(usersContext);
+            _service = new ServiceMessages();
+            _usersService = new ServiceUsers();
         }
 
         private void SetMyId()

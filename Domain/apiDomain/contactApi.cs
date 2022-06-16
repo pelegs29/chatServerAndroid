@@ -1,8 +1,9 @@
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.apiDomain;
 
 public class ContactApi
-{
+{ 
     public string Id { get; set; }
 
     public string Name { get; set; }
@@ -11,13 +12,15 @@ public class ContactApi
 
     //lastMessage
     public string? last { get; set; }
+
     //the time of the last message
     public string? lastdate { get; set; }
-    
-    
+    public string? contactOf { get; set; }
+
+
     //constrctor
 
-    public ContactApi( string id , string name, string server, string last, string lastdate)
+    public ContactApi(string id, string name, string server, string last, string lastdate)
     {
         this.Id = id;
         this.Name = name;
@@ -26,6 +29,7 @@ public class ContactApi
         this.lastdate = lastdate;
     }
 
-    public ContactApi() {}
-    
+    public ContactApi()
+    {
+    }
 }

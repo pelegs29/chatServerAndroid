@@ -8,12 +8,30 @@ namespace Services.messages;
 public class ServiceMessages : IServiceMessages
 {
     public void AddContent(string myId, string idFriend, ContentApi contentApi)
+        //TODO : check
     {
-        GetConversation(myId, idFriend).Add(contentApi);
+        using (var db = new ChatDbContext())
+        {
+            Conversation? conversation = db.Conversations
+                .Include(x => x.Contents).FirstOrDefault(x => x.from == myId && x.to == idFriend);
+            if (conversation != null)
+            {
+                conversation.Contents?.Add(contentApi);
+                db.Update(conversation);
+                db.SaveChanges();
+            }
+        }
+        // GetConversation(myId, idFriend).Add(contentApi);
     }
 
+    //TODO : check
     public void AddConv(Conversation conv)
     {
+        using (var db = new ChatDbContext())
+        {
+            db.Add(conv);
+            db.SaveChanges();
+        }
         // _conversations?.Add(conv);
     }
 
@@ -47,7 +65,6 @@ public class ServiceMessages : IServiceMessages
             }
 
             return null;
-            
         }
     }
 

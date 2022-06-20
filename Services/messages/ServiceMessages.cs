@@ -8,7 +8,6 @@ namespace Services.messages;
 public class ServiceMessages : IServiceMessages
 {
     public void AddContent(string myId, string idFriend, ContentApi contentApi)
-        //TODO : check
     {
         using (var db = new ChatDbContext())
         {
@@ -16,15 +15,16 @@ public class ServiceMessages : IServiceMessages
                 .Include(x => x.Contents).FirstOrDefault(x => x.from == myId && x.to == idFriend);
             if (conversation != null)
             {
+                db.Remove(conversation);
+                db.SaveChanges();
                 conversation.Contents?.Add(contentApi);
-                db.Update(conversation);
+                db.Add(conversation);
                 db.SaveChanges();
             }
         }
         // GetConversation(myId, idFriend).Add(contentApi);
     }
 
-    //TODO : check
     public void AddConv(Conversation conv)
     {
         using (var db = new ChatDbContext())
@@ -87,6 +87,14 @@ public class ServiceMessages : IServiceMessages
 
     public void Delete(string myId, string idFriend, ContentApi contentApi)
     {
-        GetConversation(myId, idFriend).Remove(contentApi);
+        List<ContentApi>? conv = GetConversation(myId, idFriend);
+        if (conv != null)
+        {
+            using (var db = new ChatDbContext())
+            {
+                db.Remove(contentApi);
+                db.SaveChanges();
+            }
+        }
     }
 }

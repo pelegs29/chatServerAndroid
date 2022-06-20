@@ -102,20 +102,20 @@ namespace chatServerAPI.Controllers
                 return NotFound();
             }
 
-            int? nextId = 0;
-            if (conversation.Count ==0 )
-            {
-                 nextId = 1;
-            }
-            else
-            {
-                nextId = conversation.Max(x => x.Id) + 1;
-            }
+            //int? nextId = 0;
+            //if (conversation.Count ==0 )
+            //{
+            //     nextId = 1;
+            // }
+            // else
+            //{
+            //    nextId = conversation.Max(x => x.Id) + 1;
+            //}
             DateTime date = DateTime.Now;
             string dateJS = date.ToString("o");
             
             ContentApi contentApi = new ContentApi()
-                {Content = content.Content, Created = dateJS, Id = nextId, Sent = true};
+                {Content = content.Content, Created = dateJS, Sent = true};
             _service.AddContent(_myId, friendId, contentApi);
             _usersService.UpdateLastMessage(_myId,friendId,content.Content,dateJS);
 

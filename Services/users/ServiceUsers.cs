@@ -26,7 +26,11 @@ public class ServiceUsers : IServiceUsers
         // Get(id).Contacts.Add(contact);
         using (var db = new ChatDbContext())
         {
-            db.Add(contact);
+            User? user = Get(contact.contactOf);
+            db.Remove(user);
+            db.SaveChanges();
+            user.Contacts.Add(contact);
+            db.Add(user);
             db.SaveChanges();
         }
     }
@@ -52,6 +56,7 @@ public class ServiceUsers : IServiceUsers
             {
                 return null;
             }
+
             user.Contacts = new List<ContactApi>(db.Contacts.Where(contact => contact.contactOf == user.Id));
             return user;
         }
@@ -85,7 +90,6 @@ public class ServiceUsers : IServiceUsers
         return false;
     }
 
-    //TODO : check
     public void UpdateLastMessage(string myId, string idFriend, string mess, string time)
     {
         using (var db = new ChatDbContext())

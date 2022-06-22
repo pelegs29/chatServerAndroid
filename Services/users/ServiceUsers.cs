@@ -27,11 +27,15 @@ public class ServiceUsers : IServiceUsers
         using (var db = new ChatDbContext())
         {
             User? user = Get(contact.contactOf);
-            db.Remove(user);
-            db.SaveChanges();
-            user.Contacts.Add(contact);
-            db.Add(user);
-            db.SaveChanges();
+            ContactApi? friend = user.Contacts.FirstOrDefault(c => c.Id == contact.Id);
+            if (friend == null)
+            {
+                db.Remove(user);
+                db.SaveChanges();
+                user.Contacts.Add(contact);
+                db.Add(user);
+                db.SaveChanges();
+            }
         }
     }
 

@@ -21,12 +21,6 @@ public class ChatDbContext : DbContext
         modelBuilder.Entity<Conversation>().HasKey(nameof(Conversation.Id));
     }
 
-    // public ChatDbContext()
-    // {
-    //     // Database.EnsureDeleted();
-    //     Database.EnsureCreated();
-    // }
-
     public DbSet<ContactApi> Contacts { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Conversation> Conversations { get; set; }

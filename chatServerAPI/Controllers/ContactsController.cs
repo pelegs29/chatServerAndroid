@@ -20,7 +20,7 @@ namespace chatServerAPI.Controllers
         private IServiceMessages _serviceConv;
         private string _myId;
 
-        public ContactsController(UsersContext context)
+        public ContactsController()
         {
             _service = new ServiceUsers();
             _serviceConv = new ServiceMessages();

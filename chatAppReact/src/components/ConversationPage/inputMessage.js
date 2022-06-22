@@ -73,8 +73,8 @@ function InputMessage({isSend, setIsSend, activeconv, messageList, connection}) 
         });
     }
 
-    async function SentMesToMyServer(Input) {
-        const content = {Content: Input}
+    async function SentMesToMyServer(Input, senderFunction) {
+        const content = {Content: Input.content}
         const output = await $.ajax({
             url: serverUrl + '/api/contacts/' + activeconv + '/messages',
             type: 'POST',
@@ -84,6 +84,7 @@ function InputMessage({isSend, setIsSend, activeconv, messageList, connection}) 
                 xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.getItem('jwt'));
             },
             success: function (data) {
+                senderFunction(Input);
                 return data;
             },
             error: function () {
@@ -104,7 +105,11 @@ function InputMessage({isSend, setIsSend, activeconv, messageList, connection}) 
         }
         //sendMessage(message)
         messageList.push(message)
-        SentMesToMyServer(message.content)
+        SentMesToMyServer(message, sendAndUpdate)
+
+    }
+
+    function sendAndUpdate(message) {
         SentMesToFriendServer(message.content)
         updateLastContact(message.created, message.content)
         //update the useState to render the page immediately after sending the message

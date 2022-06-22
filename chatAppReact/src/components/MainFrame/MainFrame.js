@@ -27,16 +27,18 @@ function MainFrame({userId}) {
 
     function fromApiToUser(apiUser) {
         const contacts = [];
-        apiUser.contacts.forEach(contact => {
-            const NewContact = {
-                id: contact.id,
-                name:contact.name,
-                lastMessage: contact.lastdate,
-                last: contact.last,
-                server: contact.server
-            }
-            contacts.push(NewContact);
-        });
+        if (apiUser.contacts) {
+            apiUser.contacts.forEach(contact => {
+                const NewContact = {
+                    id: contact.id,
+                    name: contact.name,
+                    lastMessage: contact.lastdate,
+                    last: contact.last,
+                    server: contact.server
+                }
+                contacts.push(NewContact);
+            });
+        }
 
         return {
             userId: apiUser.id,
@@ -80,15 +82,15 @@ function MainFrame({userId}) {
 
     //add the given contact to the contact list of the current user
     function incomingContact(contactID, server) {
-            var newContact = {
-            id : contactID,
-            last :null,
-            lastdate:null,
-            name:contactID,
-            server:server
+        var newContact = {
+            id: contactID,
+            last: null,
+            lastdate: null,
+            name: contactID,
+            server: server
         }
         //get an messages from a new friend
-        if(user.contacts.find(x=> x.id === contactID) === undefined) {
+        if (user.contacts.find(x => x.id === contactID) === undefined) {
             user.contacts.push(newContact)
         }
     }
@@ -107,8 +109,8 @@ function MainFrame({userId}) {
                 incomingMessage(userFrom, message, time)
                 setIsSend(isSend => !isSend)
             });
-            
-            connection.on("ReceiveContact",(fromUser, server) => {
+
+            connection.on("ReceiveContact", (fromUser, server) => {
                 incomingContact(fromUser, server);
                 setIsSend(isSend => !isSend)
             })

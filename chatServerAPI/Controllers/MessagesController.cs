@@ -20,7 +20,7 @@ namespace chatServerAPI.Controllers
         private IServiceUsers _usersService;
         private string _myId;
 
-        public MessagesController(UsersContext usersContext)
+        public MessagesController()
         {
             _service = new ServiceMessages();
             _usersService = new ServiceUsers();

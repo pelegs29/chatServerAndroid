@@ -30,7 +30,6 @@ function ConversationPage({activeConv, setConversation, isSend, setIsSend, conne
     }
 
 
-    //get all the user from the server
     async function getFriendConv() {
         const output = await $.ajax({
             url: serverUrl + '/api/contacts/' + activeConv + '/messages',

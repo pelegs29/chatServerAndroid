@@ -27,13 +27,15 @@ namespace chatServerAPI.Controllers
         private IServiceMessages _messagesService;
         private IServiceUsers _usersService;
         private readonly IHubContext<ChatHub> _hubContext;
+        private static Mutex _mutex = new Mutex();
 
-        public CrossServerController(UsersContext usersContext, IHubContext<ChatHub> hub)
+        public CrossServerController(IHubContext<ChatHub> hub)
         {
             _messagesService = new ServiceMessages();
             _usersService = new ServiceUsers();
             _hubContext = hub;
 
+            _mutex.WaitOne();
             if (FirebaseApp.DefaultInstance == null)
             {
                 FirebaseApp.Create(new AppOptions()
@@ -41,11 +43,13 @@ namespace chatServerAPI.Controllers
                     Credential = GoogleCredential.FromFile("private_key.json")
                 });
             }
+
+            _mutex.ReleaseMutex();
         }
 
         // v v v v v v v v v SignalR v v v v v v v v v 
 
-        private async Task SendMessage(string fromUser, string toUser, string message, string time)
+        private async Task SignalRSendMessage(string fromUser, string toUser, string message, string time)
         {
             string connectionId;
             if (ChatHub.ConnectionsDict.ContainsKey(toUser))
@@ -56,7 +60,7 @@ namespace chatServerAPI.Controllers
         }
 
 
-        private async Task AddUser(string fromUser, string toUser, string server)
+        private async Task SignalRAddUser(string fromUser, string toUser, string server)
         {
             string connectionId;
             if (ChatHub.ConnectionsDict.ContainsKey(toUser))
@@ -72,7 +76,7 @@ namespace chatServerAPI.Controllers
         // v v v v v v v v v FireBase v v v v v v v v v
 
         [HttpPost("firebase/register/")]
-        public async Task GetFirebaseToken([FromBody] FirebaseUserApi user)
+        public async Task RegisterFirebase([FromBody] FirebaseUserApi user)
         {
             if (FireBaseHub.ConnectionsDict.ContainsKey(user.username))
             {
@@ -82,7 +86,7 @@ namespace chatServerAPI.Controllers
             FireBaseHub.ConnectionsDict.Add(user.username, user.token);
         }
 
-        private void SendNotification(string fromUser, string toUser, string message, string time)
+        private void FirebaseSendNotification(string fromUser, string toUser, string message, string time)
         {
             if (FireBaseHub.ConnectionsDict.ContainsKey(toUser))
             {
@@ -105,7 +109,7 @@ namespace chatServerAPI.Controllers
         }
 
 
-        private void AddContact(string fromUser, string toUser, string server)
+        private void FirebaseAddContact(string fromUser, string toUser, string server)
         {
             if (FireBaseHub.ConnectionsDict.ContainsKey(toUser))
             {
@@ -149,33 +153,32 @@ namespace chatServerAPI.Controllers
             string date = DateTime.Now.ToString("o");
 
             List<ContentApi>? listCon = _messagesService.GetConversation(transfer.to, fromId);
-            ContentApi cont = new ContentApi() {Id = 1, Content = transfer.content, Created = date, Sent = false};
+            ContentApi cont = new ContentApi() {Content = transfer.content, Created = date, Sent = false};
             if (listCon == null)
             {
                 Conversation newConv = new Conversation()
-                    {Contents = new List<ContentApi> {cont}, Id = 1, from = fromId, to = transfer.to};
+                    {Contents = new List<ContentApi> {cont}, from = fromId, to = transfer.to};
                 _messagesService.AddConv(newConv);
             }
             else
             {
-                if (listCon.Count == 0)
-                {
-                    cont.Id = 1;
-                }
-                else
-                {
-                    cont.Id = listCon.Last().Id + 1;
-                }
-
+                // if (listCon.Count == 0)
+                // {
+                //     cont.Id = 1;
+                // }
+                // else
+                // {
+                //     cont.Id = listCon.Last().Id + 1;
+                // }
                 _messagesService.AddContent(transfer.to, fromId, cont);
             }
 
             //update the last message in the contact list of the user
             _usersService.UpdateLastMessage(transfer.to, transfer.from, transfer.content, date);
 
-            await SendMessage(transfer.from, transfer.to, transfer.content, date);
+            await SignalRSendMessage(transfer.from, transfer.to, transfer.content, date);
 
-            SendNotification(transfer.from, transfer.to, transfer.content, date);
+            FirebaseSendNotification(transfer.from, transfer.to, transfer.content, date);
 
             return Ok();
         }
@@ -217,15 +220,15 @@ namespace chatServerAPI.Controllers
                 Server = invitation.server, contactOf = myId
             };
 
-            await AddUser(invitation.from, invitation.to, invitation.server);
+            await SignalRAddUser(invitation.from, invitation.to, invitation.server);
 
-            AddContact(invitation.from, invitation.to, invitation.server);
+            FirebaseAddContact(invitation.from, invitation.to, invitation.server);
 
             _usersService.AddContact(contact);
 
             Conversation conv = new Conversation()
             {
-                Contents = new List<ContentApi>(), Id = _messagesService.GetLastConvId() + 1, from = myId,
+                Contents = new List<ContentApi>(), from = myId,
                 to = contactId
             };
             _messagesService.AddConv(conv);
